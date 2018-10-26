@@ -2,7 +2,7 @@ Flask==0.12.2
 Werkzeug==0.12.2
 gunicorn
 numpy
-cv2
+cv2=3.4.1
 pyplot
 math
 	
