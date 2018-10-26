@@ -1,3 +1,8 @@
 Flask==0.12.2
 Werkzeug==0.12.2
 gunicorn
+numpy
+cv2
+pyplot
+math
+	
