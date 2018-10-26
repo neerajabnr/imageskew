@@ -1,1 +1,1 @@
-web: python initflask.py
+web: gunicorn app:app
