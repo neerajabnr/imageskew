@@ -1,5 +1,5 @@
 Flask==0.12.2
 Werkzeug==0.12.2
 gunicorn
-opencv-contrib-python
+cv2=3.4.1
 matplotlib
