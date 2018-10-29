@@ -1,6 +1,7 @@
 Flask==0.12.2
 Werkzeug==0.12.2
 gunicorn
-libsm6 libxext6
+libsm6
+libxext6
 opencv-python
 	
