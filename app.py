@@ -15,7 +15,7 @@ app = Flask(__name__)
 @app.route("/f24/api/imageskew",methods=['POST'])
 def f24Form():
   gc.collect()
-  gc.garbage()
+  gc.garbage
   print('started skewing images...')
   data = request.json
   #print('request')
@@ -26,7 +26,7 @@ def f24Form():
   #check(result)
   response = json.dumps({'encodedImage':result.decode('UTF-8')})
   gc.collect()
-  gc.garbage()
+  gc.garbage
   return response
 
 def check(imgbase64):
