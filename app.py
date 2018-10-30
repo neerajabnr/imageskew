@@ -18,7 +18,8 @@ def f24Form():
   #print('request')
   #print(data)
   #print(data['encoded_img'])
-  result = imgskew.imageSkew(data['encoded_img']) 
+ # result = imgskew.imageSkew(data['encoded_img']) 
+  result="sample"
   #check(result)
   #response = json.dumps({'encodedImage':result.decode('UTF-8')})
   return result
