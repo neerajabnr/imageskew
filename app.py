@@ -24,6 +24,7 @@ def f24Form():
   #result="sample"
   #check(result)
   response = json.dumps({'encodedImage':result.decode('UTF-8')})
+  gc.collect()
   return response
 
 def check(imgbase64):
