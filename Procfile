@@ -1,1 +1,1 @@
-web: gunicorn app:app --graceful-timeout 200 -t 200
+web: gunicorn app:app --graceful-timeout 1200 --timeout 1200 --log-level=debug 
