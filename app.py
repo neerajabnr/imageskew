@@ -20,8 +20,8 @@ def f24Form():
   #print(data['encoded_img'])
   result = imgskew.imageSkew(data['encoded_img']) 
   #check(result)
-  response = json.dumps({'encodedImage':result.decode('UTF-8')})
-  return response
+  #response = json.dumps({'encodedImage':result.decode('UTF-8')})
+  return result
 
 def check(imgbase64):
   nparr = np.fromstring(base64.b64decode(imgbase64), np.uint8)
