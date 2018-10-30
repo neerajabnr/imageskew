@@ -51,7 +51,7 @@ def imageSkew(imgbase64):
     retval, buffer = cv2.imencode('.jpg', im_out)
 
     # Convert to base64 encoding and show start of data
-   # jpg_as_text = base64.b64encode(buffer)
+    jpg_as_text = base64.b64encode(buffer)
     #print(jpg_as_text[:80])
     print(type(jpg_as_text))
     return jpg_as_text
