@@ -3,6 +3,7 @@ import cv2
 import base64
 from matplotlib import pyplot as plt
 import math
+import gc
 
 def imageSkew(imgbase64):
   orig_image = cv2.imread('./F24_form.JPG', 0)
@@ -43,6 +44,8 @@ def imageSkew(imgbase64):
     thetaRecovered = math.atan2(ss, sc) * 180 / math.pi
     print("Calculated scale difference: %.2f\nCalculated rotation difference: %.2f" % (scaleRecovered, thetaRecovered))
     im_out = cv2.warpPerspective(skewed_image, np.linalg.inv(M), (orig_image.shape[1], orig_image.shape[0]))
+    gc.collect()
+    gc.garbage()
     print("Calculated cv2.wrap")
     #plt.imshow(im_out, 'gray')
     #cv2.imwrite('./sc.jpg',im_out)
