@@ -57,7 +57,7 @@ def imageSkew(imgbase64):
     return jpg_as_text
     
   else:
-    errorResult = "Not  enough  matches are found   -   %d/%d" % (len(good), MIN_MATCH_COUNT);
+    errorResult = "Not enough matches are found   -   %d/%d" % (len(good), MIN_MATCH_COUNT);
     print(errorResult)
     matchesMask = None
     return errorResult
