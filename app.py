@@ -8,11 +8,13 @@ from flask import Flask,request
 from werkzeug.wrappers import Request, Response
 from werkzeug.serving import run_simple
 import imgskew
+import gc
 
 app = Flask(__name__)
 
 @app.route("/f24/api/imageskew",methods=['POST'])
 def f24Form():
+  gc.collect()
   print('started skewing images...')
   data = request.json
   #print('request')
