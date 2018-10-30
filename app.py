@@ -15,6 +15,7 @@ app = Flask(__name__)
 def f24Form():
   print('started skewing image...')
   data = request.json
+  print('response')
   print(data)
   #print(data['encoded_img'])
   result = imgskew.imageSkew(data['encoded_img']) 
