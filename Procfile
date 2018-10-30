@@ -1,1 +1,1 @@
-web: gunicorn app:app --timeout 2000 --workers 1
+web:UNICORN_CMD_ARGS="--timeout=200" gunicorn app:app 
