@@ -16,7 +16,7 @@ app = Flask(__name__)
 def f24Form():
   gc.collect()
   gc.garbage
-  print('started skewing images...')
+  print('started skewing image...')
   data = request.json
   #print('request')
   #print(data)
