@@ -17,13 +17,13 @@ def f24Form():
   print('started skewing images...')
   data = request.json
   #print(request.json)
-  #print(data)
-  #print(data['encoded_img'])
+  print(data)
+  #print(data['encodedImage'])
   result = imgskew.imageSkew(data['encodedImage']) 
-  #print(data['encoded_img'])
+  #print(data['encodedImage'])
   #check(result)
   response = json.dumps({'encodedImage':result.decode('UTF-8')})
-  #print(response)
+  print(response)
   return response
 
 def check(imgbase64):
