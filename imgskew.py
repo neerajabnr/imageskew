@@ -4,8 +4,20 @@ import base64
 from matplotlib import pyplot as plt
 import math
 import gc
+#import F24ImageFinder
 
 def imageSkew(imgbase64):
+  #commenting the template code as we are using standard template
+  #res=''
+  #res=F24ImageFinder.findF24ImageType(imgbase64)
+  #with open("imageToSave.png", "wb") as fh:
+     #fh.write(imgbase64.decode('base64'))
+  #imgdata = base64.b64decode(imgbase64)
+  #filename = 'source_image.jpg'  
+  #with open(filename, 'wb') as f:
+    #f.write(imgdata)
+  #res=F24ImageFinder.findF24ImageType('./source_image.jpg')
+  #print(res)
   orig_image = cv2.imread('./F24_form.JPG', 0)
   #skewed_image = cv2.imread('./img_skew.jpg', 0)
   nparr = np.fromstring(base64.b64decode(imgbase64), np.uint8)
