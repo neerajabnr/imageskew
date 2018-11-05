@@ -15,6 +15,7 @@ app = Flask(__name__)
 @app.route("/f24/api/imageskew",methods=['POST'])
 def f24Form():
   print('started skewing images...')
+  print(request)
   data = request.json
   #print(request.json)
   print(data)
