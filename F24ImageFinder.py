@@ -171,24 +171,26 @@ def findF24ImageType(img_path):
     result = {}
     prevSS=0.0
     path_of_the_img=''
-    for i in range(1,4):
+    for i in range(1,2):
         img_template = './f24_templates/f24simp_'+str(i)+'.JPG'
         #print(img_template)
         structuralSim = structural_sim(img_path, img_template)
-        #pixelSim = pixel_sim(img_path, img_template)
-        #siftSim = sift_sim(img_path, img_template)
-        #emd = earth_movers_distance(img_path, img_template)
-        #print("RESULT with the image"+str(i))
-        #print(structuralSim, pixelSim, siftSim, emd)
+        pixelSim = pixel_sim(img_path, img_template)
+        siftSim = sift_sim(img_path, img_template)
+        emd = earth_movers_distance(img_path, img_template)
+        print("RESULT with the image"+str(i))
+        print("structuralSim   "+"pixelSim     "+ "siftSim         "+"emd      ")
+        print(structuralSim, pixelSim, siftSim, emd)
         #similarity={'structuralSim':structuralSim,'pixelSim':pixelSim,'siftSim':siftSim,'emd':emd}
         #similarity={'structuralSim':structuralSim}
         #print("------------------")
         #print(similarity)
+       
         if prevSS ==0:
-          prevSS=structuralSim
+          prevSS=siftSim
           path_of_the_img=img_template
-        elif prevSS<structuralSim:
-          prevSS=structuralSim
+        elif prevSS<siftSim:
+          prevSS=siftSim
           path_of_the_img=img_template
         #result['f24simp'+str(i)]=similarity
 
