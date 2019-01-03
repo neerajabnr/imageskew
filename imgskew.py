@@ -4,7 +4,6 @@ import base64
 from matplotlib import pyplot as plt
 import math
 import gc
-import SimilarityCheck
 
 def imageSkew(imgbase64):
   #commenting the template code as we are using standard template
