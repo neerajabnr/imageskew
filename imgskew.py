@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 import math
 import gc
 import imgmatch
-from PIL import Image
+#from PIL import Image
 
 def imageSkew(imgbase64):
   #commenting the template code as we are using standard template
@@ -63,9 +63,9 @@ def imageSkew(imgbase64):
     print("Calculated cv2.wrap")
     #plt.imshow(im_out, 'gray')
     cv2.imwrite('./sc.jpg',im_out)
-    im = Image.open('./sc.jpg')
-    width, height = im.size
-    print(height,width)
+    #im = Image.open('./sc.jpg')
+    #width, height = im.size
+    #print(height,width)
     #plt.show()
     # Convert captured image to JPG
     retval, buffer = cv2.imencode('.jpg', im_out)
