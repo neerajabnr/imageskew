@@ -4,23 +4,27 @@ import base64
 from matplotlib import pyplot as plt
 import math
 import gc
+import imgmatch
+from PIL import Image
 
 def imageSkew(imgbase64):
   #commenting the template code as we are using standard template
-  res=''
+  pathofthetemplate=''
   #res=F24ImageFinder.findF24ImageType(imgbase64)
   #with open("imageToSave.png", "wb") as fh:
      #fh.write(imgbase64.decode('base64'))
   imgdata = base64.b64decode(imgbase64)
-  filename = 'source_image.jpg'  
+  filename = 'source_image.jpg'
   with open(filename, 'wb') as f:
     f.write(imgdata)
-  #res=SimilarityCheck.findF24ImageType('./source_image.jpg')
-  #print(res)
-  orig_image = cv2.imread('./f24simp_3.jpg', 0)
+
+  pathofthetemplate=imgmatch.findTemplate('./source_image.jpg')
+  #print(pathofthetemplate)
+  orig_image = cv2.imread(pathofthetemplate, 0)
   #orig_image = cv2.imread('./F24_form.JPG', 0)
   #skewed_image = cv2.imread('./img_skew.jpg', 0)
   nparr = np.fromstring(base64.b64decode(imgbase64), np.uint8)
+  #nparr = np.fromstring(base64.b64decode(encoded_string), np.uint8)
   skewed_image = cv2.imdecode(nparr, 1)
   #cv2.imwrite('./check.jpg',skewed_image)
   #skewed_image = cv2.imread(base64.encode(imgbase64),0)
@@ -59,6 +63,9 @@ def imageSkew(imgbase64):
     print("Calculated cv2.wrap")
     #plt.imshow(im_out, 'gray')
     cv2.imwrite('./sc.jpg',im_out)
+    im = Image.open('./sc.jpg')
+    width, height = im.size
+    print(height,width)
     #plt.show()
     # Convert captured image to JPG
     retval, buffer = cv2.imencode('.jpg', im_out)
