@@ -4,14 +4,6 @@ import cv2
 from matplotlib import pyplot as plt
 import sys
 import getopt
-import daemon
-import lockfile
-import signal
-import os
-from os.path import isfile, isdir, join
-from math import sqrt
-from time import sleep
-from skimage.measure import compare_ssim as ssim
 from scipy import ndimage, misc
 #import gi
 #gi.require_version('Notify', '0.7')
