@@ -3,3 +3,4 @@ Werkzeug==0.12.2
 gunicorn
 opencv-contrib-python==3.4.1.15
 matplotlib
+scipy
