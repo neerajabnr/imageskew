@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt
 import sys
 import getopt
 from scipy import ndimage, misc
+from math import sqrt
 #import gi
 #gi.require_version('Notify', '0.7')
 #from gi.repository import Notify
@@ -122,7 +123,7 @@ def is_duplicate(img1, img2):
 #
 def findTemplate(img_path):
     #img = cv2.imread('./xx1.jpg',cv2.IMREAD_GRAYSCALE)
-    image = ndimage.imread(img_path)
+    image = cv2.imread(img_path,cv2.IMREAD_GRAYSCALE)
     image_resized = misc.imresize(image, (635, 916))
     cv2.imwrite('./resizedimage.jpg',image_resized)
     img = cv2.imread('./resizedimage.jpg',cv2.IMREAD_GRAYSCALE)
