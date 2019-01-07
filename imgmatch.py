@@ -122,7 +122,7 @@ def is_duplicate(img1, img2):
 #
 def findTemplate(img_path):
     #img = cv2.imread('./xx1.jpg',cv2.IMREAD_GRAYSCALE)
-    image = ndimage.imread(img_path, mode="RGB")
+    image = ndimage.imread(img_path)
     image_resized = misc.imresize(image, (635, 916))
     cv2.imwrite('./resizedimage.jpg',image_resized)
     img = cv2.imread('./resizedimage.jpg',cv2.IMREAD_GRAYSCALE)
