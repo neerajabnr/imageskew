@@ -4,4 +4,3 @@ gunicorn
 opencv-contrib-python==3.4.1.15
 matplotlib
 scipy
-PIL
