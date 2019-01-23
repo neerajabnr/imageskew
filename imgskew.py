@@ -5,29 +5,27 @@ from matplotlib import pyplot as plt
 import math
 import gc
 import imgmatch
-#from PIL import Image
+
+def imgDenoise(imgpath):
+  img = cv2.imread(imgpath)
+  #img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+  clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+  img = clahe.apply(img)
+  cv2.imwrite(imgpath,img)
+
 
 def imageSkew(imgbase64):
   #commenting the template code as we are using standard template
   pathofthetemplate=''
-  #res=F24ImageFinder.findF24ImageType(imgbase64)
-  #with open("imageToSave.png", "wb") as fh:
-     #fh.write(imgbase64.decode('base64'))
   imgdata = base64.b64decode(imgbase64)
   filename = 'source_image.jpg'
+  imgDenoise(filename)
   with open(filename, 'wb') as f:
     f.write(imgdata)
 
   pathofthetemplate=imgmatch.findTemplate('./source_image.jpg')
-  #print(pathofthetemplate)
   orig_image = cv2.imread(pathofthetemplate, 0)
-  #orig_image = cv2.imread('./F24_form.JPG', 0)
-  #skewed_image = cv2.imread('./img_skew.jpg', 0)
-  nparr = np.fromstring(base64.b64decode(imgbase64), np.uint8)
-  #nparr = np.fromstring(base64.b64decode(encoded_string), np.uint8)
-  skewed_image = cv2.imdecode(nparr, 1)
-  #cv2.imwrite('./check.jpg',skewed_image)
-  #skewed_image = cv2.imread(base64.encode(imgbase64),0)
+  skewed_image = cv2.imread(filename, 0)
   surf = cv2.xfeatures2d.SURF_create(400)
   kp1, des1 = surf.detectAndCompute(orig_image, None)
   kp2, des2 = surf.detectAndCompute(skewed_image, None)
@@ -61,13 +59,7 @@ def imageSkew(imgbase64):
     print("Calculated scale difference: %.2f\nCalculated rotation difference: %.2f" % (scaleRecovered, thetaRecovered))
     im_out = cv2.warpPerspective(skewed_image, np.linalg.inv(M), (orig_image.shape[1], orig_image.shape[0]))
     print("Calculated cv2.wrap")
-    #plt.imshow(im_out, 'gray')
     cv2.imwrite('./sc.jpg',im_out)
-    #im = Image.open('./sc.jpg')
-    #width, height = im.size
-    #print(height,width)
-    #plt.show()
-    # Convert captured image to JPG
     retval, buffer = cv2.imencode('.jpg', im_out)
 
     # Convert to base64 encoding and show start of data

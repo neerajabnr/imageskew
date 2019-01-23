@@ -124,7 +124,7 @@ def is_duplicate(img1, img2):
 def findTemplate(img_path):
     #img = cv2.imread('./xx1.jpg',cv2.IMREAD_GRAYSCALE)
     image = cv2.imread(img_path,cv2.IMREAD_GRAYSCALE)
-    image_resized = misc.imresize(image, (635, 916))
+    image_resized = misc.imresize(image, (768, 1024))
     cv2.imwrite('./resizedimage.jpg',image_resized)
     img = cv2.imread('./resizedimage.jpg',cv2.IMREAD_GRAYSCALE)
     img = img.copy()
