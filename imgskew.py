@@ -8,7 +8,7 @@ import imgmatch
 
 def imgDenoise(imgpath):
   img = cv2.imread(imgpath)
-  #img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+  img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
   clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
   img = clahe.apply(img)
   cv2.imwrite(imgpath,img)
