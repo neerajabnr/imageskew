@@ -68,31 +68,40 @@ def print_err(err_code):
 #
 
 def find_matches(img1, img2):
-        orb = cv2.ORB_create()
-        # Find the keypoints and descriptors with ORB
-        kp1, des1 = orb.detectAndCompute(img1, None)
-        kp2, des2 = orb.detectAndCompute(img2, None)
-        #surf = cv2.xfeatures2d.SURF_create(400)
-        #kp1, des1 = surf.detectAndCompute(img1, None)
-        #kp2, des2 = surf.detectAndCompute(img2, None)
-
-        # Create BFMatcher object
-        bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
-        #bf = cv2.BFMatcher(cv2.NORM_L1, crossCheck=False)
-
-        # Match descriptors.
-        #matches = bf.match(des1,des2)
-        matches = bf.match(des1,des2)
-        #This is my test descriptor
-        #print("matches",matches)
-        #matches = bf.knnMatch(des1,des2, k=2)
-        # Only select mathes with dostance less than DISTANCE_TRESHOLD
-        matches = [m for m in matches if m.distance < DISTANCE_TRESHOLD]
+        surf = cv2.xfeatures2d.SURF_create(400)
+        kp1, des1 = surf.detectAndCompute(img1, None)
+        kp2, des2 = surf.detectAndCompute(img2, None)
+        index_params = dict()
+        search_params = dict()
+        bf = cv2.BFMatcher()
+        matches = bf.knnMatch(des1,des2,k=2)
+        
+# Apply ratio test
+        good = []
+        for m, n in matches:
+          if m.distance < 0.7 * n.distance:
+           good.append(m)
+        #src_pts = np.float32([kp1[m.queryIdx].pt for m in good]).reshape(-1, 1, 2)
+        #dst_pts = np.float32([kp2[m.trainIdx].pt for m in good]).reshape(-1, 1, 2)
+    
+        #M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 10.0)
+        #matchesMask = mask.ravel().tolist()
+        #count = 0
+        #for m in matchesMask:
+          #if m > 0:
+           #count = count+1
+           
+        #print(count)
+  #print(good)
 
         # Sort them in the order of their distance.
-        matches = sorted(matches, key = lambda x:x.distance)
+        #good = sorted(good, key = lambda x:x.distance)
         # Only select top TOP_MATHCES points (if available)
-        return matches[:min(TOP_MATCHES, len(matches))]
+	#good[:min(TOP_MATCHES, len(good))]
+       
+        
+        #print(100*len(good)/len(matches))
+        return len(good)
 
 def compute_similarity(matches):
         # If the matches are too few, it's not likely to be duplicate
@@ -107,7 +116,7 @@ def compute_similarity(matches):
         return sqrt(norm_d)/TOP_MATCHES
 
 def is_duplicate(img1, img2):
-        similarity = compute_similarity(find_matches(img1, img2))
+        similarity = find_matches(img1, img2)
         #cv2.imwrite('img1.jpg',img1)
         #similarity = mse(img1, img2)
         #print(similarity)
@@ -123,26 +132,24 @@ def is_duplicate(img1, img2):
 #
 def findTemplate(img_path):
     #img = cv2.imread('./xx1.jpg',cv2.IMREAD_GRAYSCALE)
-    image = cv2.imread(img_path,cv2.IMREAD_GRAYSCALE)
-    image_resized = misc.imresize(image, (768, 1024))
-    cv2.imwrite('./resizedimage.jpg',image_resized)
-    img = cv2.imread('./resizedimage.jpg',cv2.IMREAD_GRAYSCALE)
-    img = img.copy()
-    similarityValue=0.0
+    img = cv2.imread(img_path,cv2.IMREAD_GRAYSCALE)
+    #image_resized = misc.imresize(image, (768, 1024))
+    #cv2.imwrite('./resizedimage.jpg',image_resized)
+    #img = cv2.imread('./resizedimage.jpg',cv2.IMREAD_GRAYSCALE)
+    #img = img.copy()
+    similarityValue=0
     pathofthetemplate=''
-    for i in range(1,4):
-        img_template='./f24_templates/f24simp_'+str(i)+'.jpg';
+    for i in range(1,38):
+        img_template='./templates/'+str(i)+'.jpg';
         template = cv2.imread(img_template,cv2.IMREAD_GRAYSCALE)
         similarity=is_duplicate(img,template)
-        if similarityValue ==0:
-           similarityValue=similarity
-           pathofthetemplate=img_template
-        elif similarityValue>similarity:
+        print(similarity)
+      
+        if similarityValue<similarity:
            similarityValue=similarity
            pathofthetemplate=img_template
      
     print(pathofthetemplate)
     return pathofthetemplate
 
-#if __name__ == '__main__':
- #       main()
+

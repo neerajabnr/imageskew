@@ -6,12 +6,16 @@ import math
 import gc
 import imgmatch
 
-def imgDenoise(imgpath):
-  img = cv2.imread(imgpath)
-  img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+def imgDenoise(img):
+  
   clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
   img = clahe.apply(img)
-  cv2.imwrite(imgpath,img)
+  return img
+
+def erosion(img):
+  kernel = np.ones((2,2),np.uint8)
+  img = cv2.erode(img,kernel,iterations = 1)
+  return img
 
 
 def imageSkew(imgbase64):
@@ -59,6 +63,8 @@ def imageSkew(imgbase64):
     print("Calculated scale difference: %.2f\nCalculated rotation difference: %.2f" % (scaleRecovered, thetaRecovered))
     im_out = cv2.warpPerspective(skewed_image, np.linalg.inv(M), (orig_image.shape[1], orig_image.shape[0]))
     print("Calculated cv2.wrap")
+    im_out = imgDenoise(im_out)
+    im_out = erosion(im_out)
     cv2.imwrite('./sc.jpg',im_out)
     retval, buffer = cv2.imencode('.jpg', im_out)
 
@@ -73,3 +79,5 @@ def imageSkew(imgbase64):
     print(errorResult)
     matchesMask = None
     return errorResult
+
+
