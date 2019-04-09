@@ -139,8 +139,8 @@ def findTemplate(img_path):
     #img = img.copy()
     similarityValue=0
     pathofthetemplate=''
-    for i in range(1,38):
-        img_template='./templates/'+str(i)+'.jpg';
+    for i in range(1,5):
+        img_template='./f24_templates/f24simp_'+str(i)+'.jpg'
         template = cv2.imread(img_template,cv2.IMREAD_GRAYSCALE)
         similarity=is_duplicate(img,template)
         print(similarity)
