@@ -23,7 +23,7 @@ def imageSkew(imgbase64):
   pathofthetemplate=''
   imgdata = base64.b64decode(imgbase64)
   filename = 'source_image.jpg'
-  imgDenoise(filename)
+  
   with open(filename, 'wb') as f:
     f.write(imgdata)
 
