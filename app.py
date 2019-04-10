@@ -17,8 +17,9 @@ def f24Form():
   print('started skewing images...')
   data = request.json
   #print(request.json)
-  #print(data)
-  #print(data['encodedImage'])
+  print(data)
+  #
+  print(data['encodedImage'])
   result = imgskew.imageSkew(data['encodedImage']) 
   #print(data['encodedImage'])
   #check(result)
@@ -32,11 +33,26 @@ def check(imgbase64):
   cv2.imwrite('./crossverify.jpg',skewed_image)
 
 
+
+
+@app.route("/f24/api/imageskewnew",methods=['POST'])
+def f24Form_new():
+  print('started skewing images...')
+  data = request.json
+  #print(request.json)
+  print(data)
+  #
+  print(data['encodedImage'])
+  result = imgskew.imageSkew(data['encodedImage']) 
+  #print(data['encodedImage'])
+  #check(result)
+  response = json.dumps({'encodedImage':result.decode('UTF-8')})
+  #print(response)
+  return response
+
 if __name__ == '__main__':
   run_simple('localhost', 4000, app)
   app.run(debug=True, use_reloader=True)
-
-	
 
 
 

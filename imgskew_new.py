@@ -21,14 +21,13 @@ def erosion(img):
 def imageSkew(imgbase64):
   #commenting the template code as we are using standard template
   pathofthetemplate=''
-  imgdata = base64.b64decode(imgbase64)
+  imgdata = imgbase64
   filename = 'source_image.jpg'
   
   with open(filename, 'wb') as f:
     f.write(imgdata)
 
-  #pathofthetemplate=imgmatch.findTemplate('./source_image.jpg')
-  pathofthetemplate='./f24_templates/f24simp_2.jpg'
+  pathofthetemplate=imgmatch.findTemplate('./source_image.jpg')
   orig_image = cv2.imread(pathofthetemplate, 0)
   skewed_image = cv2.imread(filename, 0)
   surf = cv2.xfeatures2d.SURF_create(400)
