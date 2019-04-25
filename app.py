@@ -9,6 +9,7 @@ from werkzeug.wrappers import Request, Response
 from werkzeug.serving import run_simple
 import imgskew
 import gc
+import endpt
 
 app = Flask(__name__)
 
@@ -23,7 +24,8 @@ def f24Form():
   result = imgskew.imageSkew(data['encodedImage']) 
   #print(data['encodedImage'])
   #check(result)
-  response = json.dumps({'encodedImage':result.decode('UTF-8')})
+  points = endpt.findpt('./sc.jpg')
+  response = json.dumps({'encodedImage':result.decode('UTF-8'),'bounds' : points})
   #print(response)
   return response
 
