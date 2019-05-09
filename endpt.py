@@ -62,13 +62,15 @@ def findEndPt(image ,temp,count):
 
   if count<=3 :
     return(int((int(scene_corners[3,0,0])+int(scene_corners[0,0,0]))/2))
-  else:
-    return(int(scene_corners[2,0,0] ))
+  elif count>3 and count <=9:
+    return(int((int(scene_corners[2,0,0])+int(scene_corners[1,0,0]))/2))
+  else :
+    return(int((int(scene_corners[2,0,1])+int(scene_corners[3,0,1]))/2))
 
 def findpt(img_path):
     
     points = []
-    for i in range(1,10):
+    for i in range(1,12):
         img_template='./patch/'+str(i)+'.png';
         pt = findEndPt(img_path,img_template,i)
         points.append(pt)

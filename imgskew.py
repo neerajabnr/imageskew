@@ -17,6 +17,65 @@ def erosion(img):
   img = cv2.erode(img,kernel,iterations = 1)
   return img
 
+def adjustGamma(image, gamma=1.0):
+	# build a lookup table mapping the pixel values [0, 255] to
+	# their adjusted gamma values
+	invGamma = 1.0 / gamma
+	table = np.array([((i / 255.0) ** invGamma) * 255
+		for i in np.arange(0, 256)]).astype("uint8")
+ 
+	# apply gamma correction using the lookup table
+	return cv2.LUT(image, table)
+
+def removelines(img_gray):
+
+
+  
+  template = cv2.imread('./patch/temp1.png',0)
+  w, h = template.shape[::-1]
+  res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
+  threshold = 0.75
+  loc = np.where( res >= threshold)
+  img_cpy = img_gray
+  for pt in zip(*loc[::-1]):
+   
+    p = ((pt[0]+10,pt[1]+4), (pt[0] + w-11, pt[1] + h-4)) 
+    intensity = 255
+    cv2.rectangle(img_cpy, p[0],p[1], intensity, cv2.FILLED)
+    
+  ret,mask = cv2.threshold(img_cpy,254,255,cv2.THRESH_BINARY)
+  
+  img_gray = cv2.inpaint(img_gray,mask,3,cv2.INPAINT_TELEA)
+  return img_gray
+
+def removeLinesInBetween(img_gray):
+
+
+  
+  template = cv2.imread('./patch/temp2.png',0)
+  w, h = template.shape[::-1]
+  res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
+  threshold = 0.85
+  loc = np.where( res >= threshold)
+  img_cpy = img_gray
+  for pt in zip(*loc[::-1]):
+   
+    p = ((pt[0]+3,pt[1]+3), (pt[0] + w-3, pt[1] + h-3)) 
+    intensity = 255
+    cv2.rectangle(img_cpy, p[0],p[1], intensity, cv2.FILLED)
+    
+  ret,mask = cv2.threshold(img_cpy,254,255,cv2.THRESH_BINARY)
+  
+  img_gray = cv2.inpaint(img_gray,mask,3,cv2.INPAINT_TELEA)
+    
+
+
+    
+    
+  return img_gray
+
+   
+
 
 def imageSkew(imgbase64):
   #commenting the template code as we are using standard template
@@ -66,6 +125,9 @@ def imageSkew(imgbase64):
     print("Calculated cv2.wrap")
     im_out = imgDenoise(im_out)
     im_out = erosion(im_out)
+    im_out = adjustGamma(im_out,1.5)
+    im_out = removelines(im_out)
+    im_out = removeLinesInBetween(im_out)
     cv2.imwrite('./sc.jpg',im_out)
     retval, buffer = cv2.imencode('.jpg', im_out)
 
