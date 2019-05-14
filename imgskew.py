@@ -128,19 +128,12 @@ def imageSkew(imgbase64):
     im_out = adjustGamma(im_out,1.5)
     im_out = removelines(im_out)
     im_out = removeLinesInBetween(im_out)
-    cv2.imwrite('./sc.jpg',im_out)
-    retval, buffer = cv2.imencode('.jpg', im_out)
-
-    # Convert to base64 encoding and show start of data
-    jpg_as_text = base64.b64encode(buffer)
-    #print(jpg_as_text[:80])
-    print(type(jpg_as_text))
-    return jpg_as_text
+    return im_out
     
   else:
     errorResult = "Not enough matches are found   -   %d/%d" % (len(good), MIN_MATCH_COUNT);
     print(errorResult)
     matchesMask = None
-    return errorResult
+    return []
 
 

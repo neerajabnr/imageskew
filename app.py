@@ -10,6 +10,7 @@ from werkzeug.serving import run_simple
 import imgskew
 import gc
 import endpt
+import match
 
 app = Flask(__name__)
 
@@ -21,11 +22,20 @@ def f24Form():
   print(data)
   #
   print(data['encodedImage'])
-  result = imgskew.imageSkew(data['encodedImage']) 
+  im_out = imgskew.imageSkew(data['encodedImage']) 
   #print(data['encodedImage'])
   #check(result)
-  points = endpt.findpt('./sc.jpg')
-  response = json.dumps({'encodedImage':result.decode('UTF-8'),'bounds' : points})
+  points = endpt.findpt(im_out)
+ 
+  retval, buffer = cv2.imencode('.jpg', im_out)
+
+    # Convert to base64 encoding and show start of data
+  jpg_as_text = base64.b64encode(buffer)
+    #print(jpg_as_text[:80])
+  print(type(jpg_as_text))
+  tickMarkCoords, tickMarkBoundingLimits = match.findTickCoordinates(im_out)
+    
+  response = json.dumps({'encodedImage':jpg_as_text.decode('UTF-8'),'bounds' : points,'tickMarkCoords' : tickMarkCoords , 'tickMarkBoundingLimits' :  tickMarkBoundingLimits})
   #print(response)
   return response
 
