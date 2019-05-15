@@ -14,8 +14,7 @@ import match
 
 app = Flask(__name__)
 
-def default(o):
-    if isinstance(o, np.int64): return int(o) 
+
 
 @app.route("/f24/api/imageskew",methods=['POST'])
 def f24Form():
@@ -37,8 +36,10 @@ def f24Form():
     #print(jpg_as_text[:80])
   print(type(jpg_as_text))
   tickMarkCoords, tickMarkBoundingLimits = match.findTickCoordinates(im_out)
-  tickMarkCoordsJSON  = json.dumps([{"topCorner":{"x":x[0][0],"y":x[0][1]},"bottomCorner":{"x":x[1][0],"y":x[1][1]}} for x in tickMarkCoords],default=default)
-    
+  tickMarkCoordsJSON = []
+  for x in tickMarkCoords :
+      pt  = {"topCorner":{"x":int(x[0][0]),"y":int(x[0][1])},"bottomCorner":{"x":int(x[1][0]),"y":int(x[1][1])}}
+      tickMarkCoordsJSON.append(pt)
   response = json.dumps({'encodedImage':jpg_as_text.decode('UTF-8'),'bounds' : points,'tickMarkCoords' : tickMarkCoordsJSON , 'tickMarkBoundingLimits' :  tickMarkBoundingLimits})
   #print(response)
   return response
