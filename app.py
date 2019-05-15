@@ -15,7 +15,7 @@ import match
 app = Flask(__name__)
 
 def default(o):
-    if isinstance(o, numpy.int64): return int(o) 
+    if isinstance(o, np.int64): return int(o) 
 
 @app.route("/f24/api/imageskew",methods=['POST'])
 def f24Form():
