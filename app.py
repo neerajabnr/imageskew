@@ -34,8 +34,9 @@ def f24Form():
     #print(jpg_as_text[:80])
   print(type(jpg_as_text))
   tickMarkCoords, tickMarkBoundingLimits = match.findTickCoordinates(im_out)
+  tickMarkCoordsJSON  = json.dumps([{"topCorner":{"x":x[0][0],"y":x[0][1]},"bottomCorner":{"x":x[1][0],"y":x[1][1]}} for x in tickMarkCoords])
     
-  response = json.dumps({'encodedImage':jpg_as_text.decode('UTF-8'),'bounds' : points,'tickMarkCoords' : tickMarkCoords , 'tickMarkBoundingLimits' :  tickMarkBoundingLimits})
+  response = json.dumps({'encodedImage':jpg_as_text.decode('UTF-8'),'bounds' : points,'tickMarkCoords' : tickMarkCoordsJSON , 'tickMarkBoundingLimits' :  tickMarkBoundingLimits})
   #print(response)
   return response
 

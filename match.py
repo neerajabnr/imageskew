@@ -53,7 +53,8 @@ def findTickCoordinates(image):
        bounds = endpt.findTickBoundaries(image)
        return points,bounds
     else :
-       return [] ,[]
+       return [],[] 
+
 
    
 if __name__ == '__main__':
