@@ -34,7 +34,7 @@ def removelines(img_gray):
   template = cv2.imread('./patch/temp1.png',0)
   w, h = template.shape[::-1]
   res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
-  threshold = 0.75
+  threshold = 0.8
   loc = np.where( res >= threshold)
   img_cpy = img_gray
   for pt in zip(*loc[::-1]):
