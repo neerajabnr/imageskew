@@ -127,7 +127,7 @@ def imageSkew(imgbase64):
     im_out = erosion(im_out)
     im_out = adjustGamma(im_out,1.5)
     im_out = removelines(im_out)
-    #im_out = removeLinesInBetween(im_out)
+    im_out = removeLinesInBetween(im_out)
     return im_out
     
   else:
