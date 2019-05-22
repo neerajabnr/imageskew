@@ -124,7 +124,7 @@ def imageSkew(imgbase64):
     im_out = cv2.warpPerspective(skewed_image, np.linalg.inv(M), (orig_image.shape[1], orig_image.shape[0]))
     print("Calculated cv2.wrap")
     im_out = imgDenoise(im_out)
-    im_out = erosion(im_out)
+    #im_out = erosion(im_out)
     im_out = adjustGamma(im_out,1.5)
     im_out = removelines(im_out)
     im_out = removeLinesInBetween(im_out)
