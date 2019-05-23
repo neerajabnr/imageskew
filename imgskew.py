@@ -17,6 +17,11 @@ def erosion(img):
   img = cv2.erode(img,kernel,iterations = 1)
   return img
 
+def dilation(img):
+  kernel = np.ones((2,2),np.uint8)
+  img = cv2.dilate(img,kernel,iterations = 1)
+  return img
+
 def adjustGamma(image, gamma=1.0):
 	# build a lookup table mapping the pixel values [0, 255] to
 	# their adjusted gamma values
@@ -124,10 +129,11 @@ def imageSkew(imgbase64):
     im_out = cv2.warpPerspective(skewed_image, np.linalg.inv(M), (orig_image.shape[1], orig_image.shape[0]))
     print("Calculated cv2.wrap")
     im_out = imgDenoise(im_out)
-    #im_out = erosion(im_out)
+    im_out = erosion(im_out)
     im_out = adjustGamma(im_out,1.5)
     im_out = removelines(im_out)
     im_out = removeLinesInBetween(im_out)
+    im_out = dilation(im_out)
     return im_out
     
   else:
