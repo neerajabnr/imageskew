@@ -5,8 +5,7 @@ import endpt
 
 
 
-def takeSecond(elem):
-    return elem[1][1]
+
 
 def findTickMark(img_gray,template):
     
@@ -22,26 +21,13 @@ def findTickMark(img_gray,template):
     for pt in zip(*loc[::-1]):
    
         p = ((pt[0]+3,pt[1]+3), (pt[0] + w-3, pt[1] + h-3)) 
-        #cv.rectangle(cpy, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
+        cv.rectangle(cpy, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
    
         points.append(p)
+    cv.imwrite('op.jpg',cpy)
     if len(points) > 0 :
-       points = sorted(points , key=lambda k: [k[0][1], k[0][0]])
-       print(points)
-       merged =[]
-       merged.append(points[0])
-       for pt in points:
-           last = merged[-1]
-    
-           if pt[0][1]-last[0][1] > 3 :
-              merged.append(pt)
-           else :
-              merged[-1]=pt
-
-       print(merged)
-       for pt in merged:
-           cv.rectangle(img_gray, pt[0],pt[1], (0,0,255), 2)
-       return merged
+       return points
+       
     else :
        print('Inside else')
        return []
@@ -53,14 +39,21 @@ def findTickCoordinates(image):
        bounds = endpt.findTickBoundaries(image)
        return points,bounds
     else :
-       return [],[] 
+       template = cv.imread('./patch/cross.png',0)
+       points = findTickMark(image,template)
+       if(len(points))>0:
+          bounds = endpt.findTickBoundaries(image)
+          return points,bounds       
+       else : 
+          return [],[] 
 
 
    
 if __name__ == '__main__':
 
-   img_gray = cv.imread('lineremoval_14.jpg',0)
+   img_gray = cv.imread('sc.jpg',0)
    points, bounds = findTickCoordinates(img_gray)
+   #cv.imwrite('op.jpg',img_gray)
    print(points)
    print(bounds)
 
