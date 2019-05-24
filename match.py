@@ -21,10 +21,10 @@ def findTickMark(img_gray,template):
     for pt in zip(*loc[::-1]):
    
         p = ((pt[0]+3,pt[1]+3), (pt[0] + w-3, pt[1] + h-3)) 
-        cv.rectangle(cpy, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
+        #cv.rectangle(cpy, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
    
         points.append(p)
-    cv.imwrite('op.jpg',cpy)
+    #cv.imwrite('op.jpg',cpy)
     if len(points) > 0 :
        return points
        
