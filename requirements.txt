@@ -4,4 +4,4 @@ gunicorn
 opencv-contrib-python==3.4.1.15
 matplotlib
 scipy
-pillow==5.1.0
+pillow==9.3.0
